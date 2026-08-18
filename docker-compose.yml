@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  gateway:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: gateway
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - proxy-net
+    restart: always
+
+networks:
+  proxy-net:
+    external: true
