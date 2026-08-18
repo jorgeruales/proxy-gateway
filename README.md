@@ -56,8 +56,8 @@ server {
 }
 ```
 
-### 2. Routing to Host Ports (Other Docker Ecosystems or Standalone Apps)
-If the service is not connected to `proxy-net` but exposes a port publicly or locally on the host VPS (e.g., port `4000`), proxy traffic using the host's IP address:
+### 2. Routing to Host Ports (Other Docker Ecosystems, Portainer Stacks, or Standalone Apps)
+If the service is not connected to `proxy-net` but exposes a port on the host VPS (e.g., port `4000`), proxy traffic using `host.docker.internal`:
 
 ```nginx
 server {
@@ -65,7 +65,7 @@ server {
     server_name myapp.mydomain.com;
 
     location / {
-        proxy_pass http://37.60.249.189:port; # VPS Host IP
+        proxy_pass http://host.docker.internal:4000; # Resolves to host port 4000
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
